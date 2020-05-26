@@ -1,18 +1,17 @@
 <?php
-namespace Zoop\MarketPlace;
+namespace Zoop\Invoices;
 
 use Zoop\Zoop;
 /**
- * Class Buyers
+ * Invoice class
  * 
- * Essa classe é resposavel por lidar com os usuarios
- * dentro do marketplace ao nivel do marketplace zoop.
+ * Essa classe é responsavel por tudo que seja relativo a Faturas.
  * 
- * @package Zoop\MarketPlace
- * @author italodeveloper <italoaraujo788@gmail.com>
+ * @package Zoop\Invoices
+ * @author victor <victor@margh.com.br>
  * @version 1.0.0
  */
-class Buyers extends Zoop
+class Invoice extends Zoop
 {
     public function __construct(array $configurations)
     {
@@ -20,26 +19,26 @@ class Buyers extends Zoop
     }
 
     /**
-     * createBuyer function
+     * createInvoice function
      *
-     * Cria o usuario dentro do markeplace ('não é associado ao vendedor')
+     * Cria uma fatura dentro
      *
-     * @param array $user
+     * @param array $Invoice
      *
      * @return bool|array
      * @throws \Exception
-     */
-    public function createBuyer(array $user)
+    */
+    public function createInvoice(array $invoice)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers', 
-                ['json' => $user]
+                'POST', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/invoices', 
+                ['json' => $invoice]
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
                 return $response;
-            }
+            }   
             return false;
         } catch (\Exception $e){            
             return $this->ResponseException($e);
@@ -47,46 +46,21 @@ class Buyers extends Zoop
     }
 
     /**
-     * getAllBuyers function
+     * function getInvoice
      *
-     * Lista todos os usuarios do marketplace
-     * ('não realiza associação com o vendedor')
-     *
-     * @return bool|array
-     * @throws \Exception
-     */
-    public function getAllBuyers()
-    {
-        try {
-            $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers'
-            );
-            $response = \json_decode($request->getBody()->getContents(), true);
-            if($response && is_array($response)){
-                return $response;
-            }
-            return false;
-        } catch (\Exception $e){            
-            return $this->ResponseException($e);
-        }
-    }
-
-    /**
-     * function getBuyer
-     *
-     * Pega os dados do usuario associado
+     * Pega os dados da fatura associado
      * ao id passado como parametro.
      *
-     * @param string $userId
+     * @param string $id
      *
      * @return bool|array
      * @throws \Exception
-     */
-    public function getBuyer($userId)
+    */
+    public function getInvoice($id)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/' . $userId
+                'GET', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/invoices/' . $id
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -97,23 +71,76 @@ class Buyers extends Zoop
             return $this->ResponseException($e);
         }
     }
-    
+
     /**
-     * function deleteBuyer
+     * getAllInvoices function
      *
-     * Deleta um usuario do marketplace utilizando como parametro
+     * Lista todas as faturas do marketplace
+     *
+     * @return bool|array
+     * @throws \Exception
+     */
+    public function getAllInvoices()
+    {
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'GET', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/invoices'
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
+        }
+    }
+
+    /**
+     * function putInvoice
+     *
+     * Altera os dados de uma fatura associado
+     * ao id passado como parametro.
+     *
+     * @param string $id
+     * @param array  $invoice
+     *
+     * @return bool|array
+     * @throws \Exception
+    */
+    public function putInvoice($id, $invoice)
+    {
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'PUT', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/invoices/' . $id,
+                ['json' => $invoice]
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
+        }
+    }
+
+    /**
+     * function deleteInvoice
+     *
+     * Deleta uma fatura do marketplace utilizando como parametro
      * seu id.
      *
-     * @param $userId
+     * @param $id
      *
      * @return bool|mixed|void
      * @throws \Exception
-     */
-    public function deleteBuyer($userId)
+    */
+    public function deleteInvoice($id)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'DELETE', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/' . $userId
+                'DELETE', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/invoices/' . $id
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -126,21 +153,21 @@ class Buyers extends Zoop
     }
 
     /**
-     * function getBuyerByCpf
+     * function approveInvoice
      *
-     * Pega os dados do usuario associado
-     * ao cpf passado como parametro.
+     * Aprovar manualmente uma fatura pendente, 
+     * sem que seja feita a cobrança ao cobrador
      *
-     * @param string $cpf
+     * @param string $id
      *
      * @return bool|array
      * @throws \Exception
     */
-    public function getBuyerByCpf($cpf)
+    public function approveInvoice($id)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/search?taxpayer_id=' . $cpf
+                'POST', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/invoices/' . $id . '/approve',
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -153,23 +180,22 @@ class Buyers extends Zoop
     }
 
     /**
-     * function PutBuyer
+     * function voidInvoice
      *
-     * Altera os dados do comprador associado
-     * ao id passado como parametro.
+     * Estornar uma fatura paga, sendo feito o processamento 
+     * do estorno da forma de cobrança associada ao pagamento 
+     * da fatura;
      *
      * @param string $id
-     * @param array  $buyer
      *
      * @return bool|array
      * @throws \Exception
     */
-    public function putBuyer($id, $buyer)
+    public function voidInvoice($id)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'PUT', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/' . $id,
-                ['json' => $buyer]
+                'POST', '/'.$this->configurations['versao_api'].'   /marketplaces/'. $this->configurations['marketplace']. '/invoices/' . $id . '/void',
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -181,4 +207,4 @@ class Buyers extends Zoop
         }
     }
 
-} 
+}

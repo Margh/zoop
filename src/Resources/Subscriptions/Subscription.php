@@ -1,18 +1,17 @@
 <?php
-namespace Zoop\MarketPlace;
+namespace Zoop\Subscriptions;
 
 use Zoop\Zoop;
 /**
- * Class Buyers
+ * Subscription class
  * 
- * Essa classe é resposavel por lidar com os usuarios
- * dentro do marketplace ao nivel do marketplace zoop.
+ * Essa classe é responsavel por tudo que seja relativo a Assinaturas.
  * 
- * @package Zoop\MarketPlace
- * @author italodeveloper <italoaraujo788@gmail.com>
+ * @package Zoop\Subscriptions
+ * @author victor <victor@margh.com.br>
  * @version 1.0.0
  */
-class Buyers extends Zoop
+class Subscription extends Zoop
 {
     public function __construct(array $configurations)
     {
@@ -20,26 +19,26 @@ class Buyers extends Zoop
     }
 
     /**
-     * createBuyer function
+     * createSubscription function
      *
-     * Cria o usuario dentro do markeplace ('não é associado ao vendedor')
+     * Cria uma assinatura dentro do markeplace
      *
-     * @param array $user
+     * @param array $subscription
      *
      * @return bool|array
      * @throws \Exception
      */
-    public function createBuyer(array $user)
+    public function createSubscription(array $subscription)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers', 
-                ['json' => $user]
+                'POST', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/subscriptions', 
+                ['json' => $subscription]
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
                 return $response;
-            }
+            }   
             return false;
         } catch (\Exception $e){            
             return $this->ResponseException($e);
@@ -47,46 +46,21 @@ class Buyers extends Zoop
     }
 
     /**
-     * getAllBuyers function
+     * function getSubscription
      *
-     * Lista todos os usuarios do marketplace
-     * ('não realiza associação com o vendedor')
-     *
-     * @return bool|array
-     * @throws \Exception
-     */
-    public function getAllBuyers()
-    {
-        try {
-            $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers'
-            );
-            $response = \json_decode($request->getBody()->getContents(), true);
-            if($response && is_array($response)){
-                return $response;
-            }
-            return false;
-        } catch (\Exception $e){            
-            return $this->ResponseException($e);
-        }
-    }
-
-    /**
-     * function getBuyer
-     *
-     * Pega os dados do usuario associado
+     * Pega os dados da assinatura associado
      * ao id passado como parametro.
      *
-     * @param string $userId
+     * @param string $id
      *
      * @return bool|array
      * @throws \Exception
      */
-    public function getBuyer($userId)
+    public function getSubscription($id)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/' . $userId
+                'GET', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/subscriptions/' . $id
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -97,23 +71,47 @@ class Buyers extends Zoop
             return $this->ResponseException($e);
         }
     }
-    
+
     /**
-     * function deleteBuyer
+     * getAllSubscriptions function
      *
-     * Deleta um usuario do marketplace utilizando como parametro
+     * Lista todos as assinaturas do marketplace
+     *
+     * @return bool|array
+     * @throws \Exception
+     */
+    public function getAllSubscriptions()
+    {
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'GET', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/subscriptions'
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
+        }
+    }
+
+    /**
+     * function deleteSubscription
+     *
+     * Deleta uma assinatura do marketplace utilizando como parametro
      * seu id.
      *
-     * @param $userId
+     * @param $id
      *
      * @return bool|mixed|void
      * @throws \Exception
      */
-    public function deleteBuyer($userId)
+    public function deleteSubscription($id)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'DELETE', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/' . $userId
+                'DELETE', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/subscriptions/' . $id
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -126,21 +124,23 @@ class Buyers extends Zoop
     }
 
     /**
-     * function getBuyerByCpf
+     * function putSubscription
      *
-     * Pega os dados do usuario associado
-     * ao cpf passado como parametro.
+     * Altera os dados de uma assinatura associado
+     * ao id passado como parametro.
      *
-     * @param string $cpf
+     * @param string $id
+     * @param array  $subscription
      *
      * @return bool|array
      * @throws \Exception
     */
-    public function getBuyerByCpf($cpf)
+    public function putSubscription($id, $subscription)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/search?taxpayer_id=' . $cpf
+                'PUT', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/subscriptions/' . $id,
+                ['json' => $subscription]
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -153,23 +153,21 @@ class Buyers extends Zoop
     }
 
     /**
-     * function PutBuyer
+     * function suspendSubscription
      *
-     * Altera os dados do comprador associado
+     * Suspende uma assinatura associado
      * ao id passado como parametro.
      *
      * @param string $id
-     * @param array  $buyer
      *
      * @return bool|array
      * @throws \Exception
     */
-    public function putBuyer($id, $buyer)
+    public function suspendSubscription($id)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'PUT', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/' . $id,
-                ['json' => $buyer]
+                'POST', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/subscriptions/' . $id . '/suspend',
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -181,4 +179,31 @@ class Buyers extends Zoop
         }
     }
 
-} 
+    /**
+     * function reactivateSubscription
+     *
+     * Reativa uma assinatura associado
+     * ao id passado como parametro.
+     *
+     * @param string $id
+     *
+     * @return bool|array
+     * @throws \Exception
+    */
+    public function reactivateSubscription($id)
+    {
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'POST', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/subscriptions/' . $id . '/reactivate',
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
+        }
+    }
+
+}

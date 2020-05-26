@@ -20,6 +20,39 @@ class Sellers extends Zoop
     }
 
     /**
+     * createSeller function
+     *
+     * Cria o vendedor dentro do markeplace 
+     *
+     * @param array $seller
+     * @param array $type = 'businesses' or 'individuals'
+     *
+     * @return bool|array
+     * @throws \Exception
+     */
+    public function createSeller(array $seller, $type = 'businesses')
+    {
+        try {
+
+            $request = $this->configurations['guzzle']->request(
+                'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. "/sellers/{$type}", 
+                ['json' => $seller]
+            );
+
+            $response = \json_decode($request->getBody()->getContents(), true);
+
+            if(!$response || !is_array($response)) throw new \Exception("Resposta não esperada: {$response}");
+
+            return $response;
+
+        } catch (\Exception $e){
+
+            return $this->ResponseException($e);
+
+        }
+    }
+
+    /**
      * getSeller function
      *
      * Pega os dados de um vendedor utilizando seu id

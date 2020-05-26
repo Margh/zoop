@@ -17,10 +17,11 @@ namespace Zoop\Core;
  */
 class Config
 {
-    public static function configure($token, $marketplace, $vendedor, $is_zend = null)
+    public static function configure($token, $marketplace, $vendedor, $is_zend = null, $versao_api = 'v1')
     {
         $configurations = [
             'marketplace' => $marketplace,
+            'versao_api' => $versao_api,
             'gatway' => 'zoop',
             'base_url' => 'https://api.zoop.ws',
             'auth' => [

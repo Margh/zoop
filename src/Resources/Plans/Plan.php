@@ -1,18 +1,17 @@
 <?php
-namespace Zoop\MarketPlace;
+namespace Zoop\Plans;
 
 use Zoop\Zoop;
 /**
- * Class Buyers
+ * Plan class
  * 
- * Essa classe é resposavel por lidar com os usuarios
- * dentro do marketplace ao nivel do marketplace zoop.
+ * Essa classe é responsavel por tudo que seja relativo a Planos.
  * 
- * @package Zoop\MarketPlace
- * @author italodeveloper <italoaraujo788@gmail.com>
+ * @package Zoop\Plans
+ * @author victor <victor@margh.com.br>
  * @version 1.0.0
  */
-class Buyers extends Zoop
+class Plan extends Zoop
 {
     public function __construct(array $configurations)
     {
@@ -20,21 +19,21 @@ class Buyers extends Zoop
     }
 
     /**
-     * createBuyer function
+     * createPlan function
      *
-     * Cria o usuario dentro do markeplace ('não é associado ao vendedor')
+     * Cria um plano dentro do markeplace
      *
-     * @param array $user
+     * @param array $plan
      *
      * @return bool|array
      * @throws \Exception
      */
-    public function createBuyer(array $user)
+    public function createPlan(array $plan)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers', 
-                ['json' => $user]
+                'POST', '/'.$this->configurations['versao_api'].'/marketplaces/'.$this->configurations['marketplace'].'/plans', 
+                ['json' => $plan]
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -47,46 +46,21 @@ class Buyers extends Zoop
     }
 
     /**
-     * getAllBuyers function
+     * function getPlan
      *
-     * Lista todos os usuarios do marketplace
-     * ('não realiza associação com o vendedor')
-     *
-     * @return bool|array
-     * @throws \Exception
-     */
-    public function getAllBuyers()
-    {
-        try {
-            $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers'
-            );
-            $response = \json_decode($request->getBody()->getContents(), true);
-            if($response && is_array($response)){
-                return $response;
-            }
-            return false;
-        } catch (\Exception $e){            
-            return $this->ResponseException($e);
-        }
-    }
-
-    /**
-     * function getBuyer
-     *
-     * Pega os dados do usuario associado
+     * Pega os dados do plano associado
      * ao id passado como parametro.
      *
-     * @param string $userId
+     * @param string $id
      *
      * @return bool|array
      * @throws \Exception
      */
-    public function getBuyer($userId)
+    public function getPlan($id)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/' . $userId
+                'GET', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/plans/' . $id
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -97,23 +71,47 @@ class Buyers extends Zoop
             return $this->ResponseException($e);
         }
     }
-    
+
     /**
-     * function deleteBuyer
+     * getAllPlans function
      *
-     * Deleta um usuario do marketplace utilizando como parametro
+     * Lista todos os planos do marketplace
+     *
+     * @return bool|array
+     * @throws \Exception
+     */
+    public function getAllPlans()
+    {
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'GET', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/plans'
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
+        }
+    }
+
+    /**
+     * function deletePlan
+     *
+     * Deleta um plano do marketplace utilizando como parametro
      * seu id.
      *
-     * @param $userId
+     * @param $id
      *
      * @return bool|mixed|void
      * @throws \Exception
      */
-    public function deleteBuyer($userId)
+    public function deletePlan($id)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'DELETE', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/' . $userId
+                'DELETE', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/plans/' . $id
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -126,50 +124,23 @@ class Buyers extends Zoop
     }
 
     /**
-     * function getBuyerByCpf
+     * function PutPlan
      *
-     * Pega os dados do usuario associado
-     * ao cpf passado como parametro.
-     *
-     * @param string $cpf
-     *
-     * @return bool|array
-     * @throws \Exception
-    */
-    public function getBuyerByCpf($cpf)
-    {
-        try {
-            $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/search?taxpayer_id=' . $cpf
-            );
-            $response = \json_decode($request->getBody()->getContents(), true);
-            if($response && is_array($response)){
-                return $response;
-            }
-            return false;
-        } catch (\Exception $e){            
-            return $this->ResponseException($e);
-        }
-    }
-
-    /**
-     * function PutBuyer
-     *
-     * Altera os dados do comprador associado
+     * Altera os dados do plano associado
      * ao id passado como parametro.
      *
      * @param string $id
-     * @param array  $buyer
+     * @param array  $plan
      *
      * @return bool|array
      * @throws \Exception
     */
-    public function putBuyer($id, $buyer)
+    public function putPlan($id, $plan)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'PUT', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/' . $id,
-                ['json' => $buyer]
+                'PUT', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/plans/' . $id,
+                ['json' => $plan]
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -181,4 +152,4 @@ class Buyers extends Zoop
         }
     }
 
-} 
+}

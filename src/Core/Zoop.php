@@ -44,7 +44,10 @@ abstract class Zoop
             WebHook\WebHook::class,
             MarketPlace\Buyers::class,
             Payment\CreditCard::class,
-            Payment\Ticket::class
+            Payment\Ticket::class,
+            Plans\Plan::class,
+            Subscriptions\Subscription::class,
+            Invoices\Invoice::class
         ];
     }
 
@@ -174,4 +177,10 @@ abstract class Zoop
         }
         throw new \Exception(\json_encode(\json_decode($e->getResponse()->getBody()->getContents(), true)), 1);
     }
+
+    public function setApiVersion($version)
+    {
+        $this->configurations['versao_api'] = $version;
+    }
+
 }
