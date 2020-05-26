@@ -1,5 +1,5 @@
 {
-    "name": "italodeveloper/zoop-sdk",
+    "name": "margh/zoop-sdk",
     "description": "SDK de pagamentos Zoop",
     "license": "MIT",
     "type": "library",
@@ -13,6 +13,10 @@
         {
             "name": "Ítalo Araújo",
             "email": "italoaraujo@gmail.com"
+        },
+        {
+            "name": "Victor Aguiar",
+            "email": "victordeaguiarsouza@gmail.com"
         }
     ],
     "config": {
