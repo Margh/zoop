@@ -33,7 +33,7 @@ class Transactions extends Zoop
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/sellers/' . $this->configurations['auth']['on_behalf_of'] .'/transactions'
+                'GET', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/transactions'
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -51,16 +51,16 @@ class Transactions extends Zoop
      * Pega os detalhes de uma transação em especifico
      * utilizando como parametro o id da mesma.
      *
-     * @param string $transaction
+     * @param string $id
      *
      * @return array|bool
      * @throws \Exception
      */
-    public function getTransaction($transaction)
+    public function getTransaction($id)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/transactions/'. $transaction
+                'GET', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/transactions/'. $id
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -71,4 +71,32 @@ class Transactions extends Zoop
             return $this->ResponseException($e);
         }
     }
-}
+
+    /**
+     * getTransactionsBySeller function
+     *
+     * Lista as transações do vendedor(seller)
+     * utilizando como parametro o id do mesmo.
+     *
+     * @param string $id
+     *
+     * @return array|bool
+     * @throws \Exception
+     */
+    public function getTransactionsBySeller($id)
+    {
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'GET', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/sellers/'. $id .'/transactions'
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
+        }
+    }
+
+}   

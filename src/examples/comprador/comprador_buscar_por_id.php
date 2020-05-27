@@ -2,7 +2,7 @@
 
 try {
 
-    $api = require_once('api.php');
+    $api = require_once('../api.php');
 
     $idComprador = '2dbc63f476db4a39bd210cbc36ead1ae';
 

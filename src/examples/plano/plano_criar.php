@@ -2,7 +2,7 @@
 
 try {
 
-    $api = require_once('api.php');
+    $api = require_once('../api.php');
 
     $newPlan = [
         "name"            => "Básico",

@@ -2,12 +2,12 @@
 
 try {
 
-    $api = require_once('api.php');
+    $api = require_once('../api.php');
 
-    $id = 'e557a2d753f24383bc9c184e876eecd2';
+    $idComprador = 'cb876c7e68c24fec910c97f0336fee7a';
 
-    //Deleta o plano do Marketplace
-    $response = $api->deletePlan($id);
+    //Deleta o comprador do Marketplace
+    $response = $api->deleteBuyer($idComprador);
 
     echo '<pre>';
     print_r($response);

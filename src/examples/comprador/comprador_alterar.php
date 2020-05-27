@@ -2,13 +2,15 @@
 
 try {
 
-    $api = require_once('api.php');
+    $api = require_once('../api.php');
 
-    $comprador = $api->createBuyer([
+    $id = '2dbc63f476db4a39bd210cbc36ead1ae';
+
+    $buyer = [
         'first_name' => 'Victor',
         'last_name'  => 'Aguiar',
         'taxpayer_id' => '11836128770',
-        'email' => 'ricardo.pedrosa@zoop.co',
+        'email' => 'victor.kasulo@gmail.com',
         'address' => [
             'line1' => 'Av Americas, 500',
             'line2' => 'Citta América',
@@ -18,7 +20,9 @@ try {
             'postal_code' => '22845046',
             'country_code' => 'BR'
         ],
-    ]);
+    ];
+
+    $comprador = $api->putBuyer($id, $buyer);
     
     echo '<pre>';
     print_r($comprador);

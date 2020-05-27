@@ -2,64 +2,9 @@
 
 try {
 
-    $api = require_once('api.php');
+    $api = require_once('../api.php');
 
     //AINDA NÂO ESTÁ FUNCIONANDO
-
-    /* {
-        "id": "<string>",
-        "status": "<string>",
-        "resource": "<string>",
-        "type": "<string>",
-        "account_balance": "<number>",
-        "current_balance": "<number>",
-        "fiscal_responsibility": "<string>",
-        "owner": {
-            "first_name": "<string>",
-            "last_name": "<string>",
-            "email": "<string>",
-            "phone_number": "<string>",
-            "taxpayer_id": "<string>",
-            "birthdate": "<string>"
-        },
-        "description": "<string>",
-        "business_name": "<string>",
-        "business_phone": "<string>",
-        "business_email": "<string>",
-        "business_website": "<string>",
-        "business_description": "<string>",
-        "business_facebook": "<string>",
-        "business_twitter": "<string>",
-        "ein": "<string>",
-        "business_address": {
-            "line1": "<string>",
-            "line2": "<string>",
-            "line3": "<string>",
-            "neighborhood": "<string>",
-            "city": "<string>",
-            "state": "<string>",
-            "postal_code": "<string>",
-            "country_code": "<string>"
-        },
-        "business_opening_date": "<date>",
-        "owner_address": {
-            "line1": "<string>",
-            "line2": "<string>",
-            "line3": "<string>",
-            "neighborhood": "<string>",
-            "city": "<string>",
-            "state": "<string>",
-            "postal_code": "<string>",
-            "country_code": "<string>"
-        },
-        "delinquent": "<boolean>",
-        "default_debit": "<string>",
-        "default_credit": "<string>",
-        "mcc": "<string>",
-        "metadata": "<object>",
-        "created_at": "<dateTime>",
-        "updated_at": "<dateTime>"
-    } */
 
     $arrDados = [
         "fiscal_responsibility" => "",

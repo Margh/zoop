@@ -3,7 +3,7 @@
 use Zoop\Core\Config;
 use Zoop\ZoopClient AS Api;
 
-require_once('../../vendor/autoload.php');
+require_once('../../../vendor/autoload.php');
 
 $marketplace = 'c8cb57dbc9ac48c8821be069c268c874';
 $token       = 'zpk_test_rQhtNYzw5rTjt2vZydh5qy7c'; //username

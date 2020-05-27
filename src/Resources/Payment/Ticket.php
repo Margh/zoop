@@ -134,4 +134,57 @@ class Ticket extends Zoop
             return $this->ResponseException($e);
         }
     }
+
+    /**
+     * getTicket function
+     *
+     * Recuperar detalhes de boleto
+     *
+     * @param string $id
+     *
+     * @return array|bool
+     * @throws \Exception
+    */
+    public function getTicket($id)
+    {
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/boletos/' . $id
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
+        }
+    }
+
+    /**
+     * sendTicketByEmail function
+     *
+     * Envia o boleto para o email cadastrado no customer(buyer)
+     *
+     * @param string $id
+     *
+     * @return array|bool
+     * @throws \Exception
+    */
+    public function sendTicketByEmail($id)
+    {
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. '/boletos/' . $id . '/emails'
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
+        }
+    }
+
 }

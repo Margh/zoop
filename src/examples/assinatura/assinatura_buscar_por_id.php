@@ -2,7 +2,7 @@
 
 try {
 
-    $api = require_once('api.php');
+    $api = require_once('../api.php');
 
     $id = '58b5962cf47e410fa590dc9759ba6202';
 

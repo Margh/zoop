@@ -2,7 +2,7 @@
 
 try {
 
-    $api = require_once('api.php');
+    $api = require_once('../api.php');
 
     $idVendedor = '32057c75a0004432841a9a67db366150';
 

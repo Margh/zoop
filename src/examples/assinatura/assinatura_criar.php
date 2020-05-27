@@ -2,7 +2,7 @@
 
 try {
 
-    $api = require_once('api.php');
+    $api = require_once('../api.php');
 
     $newSubscription =[
         "plan"             => "42473a92752a45b48c7a0ce48d375298", //id plano
