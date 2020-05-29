@@ -4,8 +4,6 @@ try {
 
     $api = require_once('../api.php');
 
-    //AINDA NÂO ESTÁ FUNCIONANDO
-
     $arrDados = [
         "fiscal_responsibility" => "",
         'owner'                 => [
@@ -39,8 +37,9 @@ try {
         'mcc'                   => '',
     ];
 
-    //Vendedores do tipo pessoa física devemos passar o segundo parametro como 'individuals'
-    $vendedor = $api->createSeller($arrDados, 'individuals');
+    $vendedor = $api->createSeller($arrDados);
+    //Erro retornado caso já exista um vendedor cadastrado com o cnpj informado.
+    //{"error":{"status":"Conflict","status_code":409,"type":"invalid_request_error","category":"duplicate_taxpayer_id","message":"Customer with ein \"93219324000104\" already exists."}}
 
     echo '<pre>';
     print_r($vendedor);

@@ -3,16 +3,17 @@ namespace Zoop\MarketPlace;
 
 use Zoop\Zoop;
 /**
- * Class Sellers
+ * Class Cards
  * 
- * Essa classe é resposavel por lidar com os usuarios
- * dentro do marketplace ao nivel do marketplace zoop.
+ * Essa classe é utilizada para associar um token de cartão
+ * a um comprador, recuperar detalhes, remover e 
+ * alterar detalhes do cartão
  * 
  * @package Zoop\MarketPlace
- * @author italodeveloper <italoaraujo788@gmail.com>
+ * @author Victor <victor@margh.com.br>
  * @version 1.0.0
  */
-class Sellers extends Zoop
+class Cards extends Zoop
 {
     public function __construct(array $configurations)
     {
@@ -20,23 +21,23 @@ class Sellers extends Zoop
     }
 
     /**
-     * createSeller function
+     * createCard function
      *
-     * Cria o vendedor dentro do markeplace 
+     * Cria um token para um cartão
      *
-     * @param array $seller
-     * @param array $type = 'businesses' or 'individuals'
-     *
+     * @param array $content
+     * content = ["token" => "{{id_token}}", 
+     * "customer" => "{{id_card}}"]
      * @return bool|array
      * @throws \Exception
      */
-    public function createSeller(array $seller, $type = 'businesses')
+    public function associatecard(array $content)
     {
         try {
 
             $request = $this->configurations['guzzle']->request(
-                'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. "/sellers/{$type}", 
-                ['json' => $seller]
+                'POST', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. "/cards", 
+                ['json' => $content]
             );
 
             $response = \json_decode($request->getBody()->getContents(), true);
@@ -53,9 +54,9 @@ class Sellers extends Zoop
     }
 
     /**
-     * getSeller function
+     * getCard function
      *
-     * Pega os dados de um vendedor utilizando seu id
+     * Pega os dados de um cartão utilizando seu id
      * como paramtro.
      *
      * @param string|int $id
@@ -63,11 +64,11 @@ class Sellers extends Zoop
      * @return void
      * @throws \Exception
      */
-    public function getSeller($id)
+    public function getCard($id)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/sellers/'. $id
+                'GET', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/cards/'. $id
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -80,68 +81,50 @@ class Sellers extends Zoop
     }
 
     /**
-     * getAllSellers function
+     * function deleteCard
      *
-     * Lista todos os vendedores do marketplace
-     * 
+     * Deleta um cartão do marketplace utilizando como parametro
+     * seu id.
+     *
+     * @param $id
+     *
+     * @return bool|mixed|void
      * @throws \Exception
-     * @return array|void
      */
-    public function getAllSellers()
+    public function deleteCard($id)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/sellers'
+                'DELETE', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/cards/' . $id
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
                 return $response;
             }
             return false;
-        } catch (\Exception $e){            
+        } catch (\Exception $e){
             return $this->ResponseException($e);
         }
     }
 
     /**
-     * getSellerByCPF function
+     * function PutCard
      *
-     * Busca o vendedor pel CPF
-     * 
-     * @param string $cpf
+     * Altera os dados do cartão associado
+     * ao id passado como parametro.
+     *
+     * @param string $id
+     * @param array  $card
+     *
+     * @return bool|array
      * @throws \Exception
-     * @return array|void
-     */
-    public function getSellerByCPF($cpf)
+    */
+    public function putCard($id, $card)
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/sellers/search?taxpayer_id=' . $cpf
-            );
-            $response = \json_decode($request->getBody()->getContents(), true);
-            if($response && is_array($response)){
-                return $response;
-            }
-            return false;
-        } catch (\Exception $e){            
-            return $this->ResponseException($e);
-        }
-    }
-
-    /**
-     * getSellerByCNPJ function
-     *
-     * Busca o vendedor pelo CNPJ
-     * 
-     * @param string $cnpj
-     * @throws \Exception
-     * @return array|void
-     */
-    public function getSellerByCNPJ($cnpj)
-    {
-        try {
-            $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/sellers/search?ein=' . $cnpj
+                'PUT', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/cards/' . $id,
+                ['json' => $card]
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){

@@ -37,7 +37,7 @@ class CreditCard extends Zoop
             'currency' => 'BRL',
             'description' => $card['description'],
             'on_behalf_of' => $this->configurations['auth']['on_behalf_of'],
-            'statement_descriptor' => 'SEMINOVOS BH',
+            'statement_descriptor' => isset($card['statement_descriptor'])? $card['statement_descriptor'] : '',
             'payment_type' => 'credit',
             'source' => array(
                 'usage' => 'single_use',
@@ -106,7 +106,7 @@ class CreditCard extends Zoop
         try {
             $payment = $this->prepareCreditCard($card, $referenceId);
             $request = $this->configurations['guzzle']->request(
-                'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. '/transactions',
+                'POST', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/transactions',
                 ['json' => $payment]
             );
             $response = \json_decode($request->getBody()->getContents(), true);

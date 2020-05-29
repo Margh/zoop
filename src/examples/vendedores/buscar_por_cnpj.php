@@ -4,12 +4,12 @@ try {
 
     $api = require_once('../api.php');
 
-    $cpf = '11836128770';
+    $cnpj = '09578520000150';
 
-    $comprador = $api->getBuyerByCpf($cpf);
+    $vendedor = $api->getSellerByCNPJ($cnpj);
 
     echo '<pre>';
-    print_r($comprador);
+    print_r($vendedor);
 
 } catch (\Exception $e) {
 

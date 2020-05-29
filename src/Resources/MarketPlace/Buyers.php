@@ -126,7 +126,7 @@ class Buyers extends Zoop
     }
 
     /**
-     * function getBuyerByCpf
+     * function getBuyerByCPF
      *
      * Pega os dados do usuario associado
      * ao cpf passado como parametro.
@@ -136,11 +136,38 @@ class Buyers extends Zoop
      * @return bool|array
      * @throws \Exception
     */
-    public function getBuyerByCpf($cpf)
+    public function getBuyerByCPF($cpf)
     {
         try {
             $request = $this->configurations['guzzle']->request(
                 'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/search?taxpayer_id=' . $cpf
+            );
+            $response = \json_decode($request->getBody()->getContents(), true);
+            if($response && is_array($response)){
+                return $response;
+            }
+            return false;
+        } catch (\Exception $e){            
+            return $this->ResponseException($e);
+        }
+    }
+
+    /**
+     * function getBuyerByCNPJ
+     *
+     * Pega os dados do usuario associado
+     * ao cnpj passado como parametro.
+     *
+     * @param string $cnpj
+     *
+     * @return bool|array
+     * @throws \Exception
+    */
+    public function getBuyerByCNPJ($cnpj)
+    {
+        try {
+            $request = $this->configurations['guzzle']->request(
+                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/buyers/search?ein=' . $cnpj
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){

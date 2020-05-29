@@ -4,7 +4,7 @@ try {
 
     $api = require_once('../api.php');
 
-    $id = 'e557a2d753f24383bc9c184e876eecd2';
+    $id = 'ac904dc665fa4320ac2ac43d37544759';
 
     //Deleta o plano do Marketplace
     $response = $api->deletePlan($id);

@@ -7,11 +7,10 @@ try {
     $newPlan = [
         "name"            => "Básico",
         "frequency"       => "monthly",
-        "interval"        => 30,
-        "payment_methods" => ['credit'],
+        "interval"        => 1,
+        "payment_methods" => ["credit"],
         "currency"         => "BRL",
-        "amount"           => 1800,
-        "setup_amount"     => 2000,
+        "amount"           => 18000,
         "description"      => "Plano básico",
         "grace_period"     => 7,
         "tolerance_period" => 5
