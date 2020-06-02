@@ -47,7 +47,10 @@ abstract class Zoop
             Payment\Ticket::class,
             Plans\Plan::class,
             Subscriptions\Subscription::class,
-            Invoices\Invoice::class
+            Invoices\Invoice::class,
+            MarketPlace\Cards::class,
+            MarketPlace\Tokens::class,
+            MarketPlace\Accounts::class
         ];
     }
 

@@ -125,7 +125,7 @@ class WebHook extends Zoop
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'POST', '/v1/marketplaces/'. $this->configurations['marketplace']. '/webhooks',
+                'POST', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/webhooks',
                 ['json' => array(
                     'url' => $url,
                     'method' => 'POST', 
@@ -154,7 +154,7 @@ class WebHook extends Zoop
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/v1/marketplaces/'. $this->configurations['marketplace']. '/webhook'
+                'GET', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/webhook'
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -180,7 +180,7 @@ class WebHook extends Zoop
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'DELETE', '/v1/marketplaces/'. $this->configurations['marketplace']. '/webhooks/' . $webhookId
+                'DELETE', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/webhooks/' . $webhookId
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){

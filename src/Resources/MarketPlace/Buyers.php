@@ -108,7 +108,7 @@ class Buyers extends Zoop
      *
      * @return bool|mixed|void
      * @throws \Exception
-     */
+    */
     public function deleteBuyer($userId)
     {
         try {

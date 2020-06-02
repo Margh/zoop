@@ -27,7 +27,7 @@ class Tokens extends Zoop
      *
      * @return bool|array
      * @throws \Exception
-     */
+    */
     public function createCard(array $card)
     {
         try {
@@ -59,7 +59,7 @@ class Tokens extends Zoop
      *
      * @return bool|array
      * @throws \Exception
-     */
+    */
     public function createAccount(array $account)
     {
         try {
