@@ -112,25 +112,18 @@ class WebHook extends Zoop
     /**
      * createWebHook function
      *
-     * Criando WebHook com cenario "advinhado" pois o mesmo
-     * não se encontra na documentação oficial, passando a url
-     * de callback e a descrição do hook
+     * Criando WebHook
      * 
-     * @param string $url
-     * @param string $description
+     * @param array $webhook
      * @return array|bool
      * @throws \Exception Erro basico de requisição
      */
-    public function createWebHook($url, $description)
+    public function createWebHook(array $webhook)
     {
         try {
             $request = $this->configurations['guzzle']->request(
                 'POST', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/webhooks',
-                ['json' => array(
-                    'url' => $url,
-                    'method' => 'POST', 
-                    'description' => $description
-                )]
+                ['json' => $webhook]
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
@@ -154,7 +147,7 @@ class WebHook extends Zoop
     {
         try {
             $request = $this->configurations['guzzle']->request(
-                'GET', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/webhook'
+                'GET', '/'.$this->configurations['versao_api'].'/marketplaces/'. $this->configurations['marketplace']. '/webhooks'
             );
             $response = \json_decode($request->getBody()->getContents(), true);
             if($response && is_array($response)){
