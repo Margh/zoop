@@ -4,7 +4,7 @@ try {
 
     $api = require_once('../api.php');
 
-    $cpf = '11836128770';
+    $cpf = '66624007001';
 
     $comprador = $api->getBuyerByCPF($cpf);
 
