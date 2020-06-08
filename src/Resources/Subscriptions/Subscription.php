@@ -1,7 +1,7 @@
 <?php
 namespace Zoop\Subscriptions;
 
-use Zoop\Zoop;
+use Zoop\Core\Zoop;
 /**
  * Subscription class
  * 

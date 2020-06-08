@@ -1,7 +1,7 @@
 <?php
 namespace Zoop\Invoices;
 
-use Zoop\Zoop;
+use Zoop\Core\Zoop;
 /**
  * Invoice class
  * 

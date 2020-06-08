@@ -1,7 +1,7 @@
 <?php
 namespace Zoop\MarketPlace;
 
-use Zoop\Zoop;
+use Zoop\Core\Zoop;
 /**
  * Class Cards
  * 

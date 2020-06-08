@@ -1,7 +1,7 @@
 <?php
 namespace Zoop\Plans;
 
-use Zoop\Zoop;
+use Zoop\Core\Zoop;
 /**
  * Plan class
  * 

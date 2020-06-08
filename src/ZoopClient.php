@@ -1,7 +1,7 @@
 <?php
 namespace Zoop;
 
-use Zoop\Zoop;
+use Zoop\Core\Zoop;
 /**
  * ZoopClient class
  *
