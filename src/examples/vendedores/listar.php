@@ -1,10 +1,19 @@
 <?php
 
 
-try {   
+try {
+
     $api = require_once('../api.php');
 
-    $vendedores = $api->getAllSellers();
+    $api->setApiVersion('v1');
+    
+    $vendedores = new \Zoop\Sellers($api);
+
+    $vendedores = $vendedores->get([
+        'limit'=>'20',
+        'sort' => 'time-descending', 
+        'offset' => 0
+    ]);
 
     echo '<pre>';
     print_r($vendedores);

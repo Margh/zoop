@@ -1,41 +1,25 @@
 {
-    "name": "margh/zoop-sdk",
-    "description": "SDK de pagamentos Zoop",
-    "license": "MIT",
-    "type": "library",
-    "keywords": [
-        "italodeveloper",
-        "zoop",
-        "payment",
-        "gateway "
-    ],
-    "authors": [
-        {
-            "name": "Ítalo Araújo",
-            "email": "italoaraujo@gmail.com"
-        },
-        {
-            "name": "Victor Aguiar",
-            "email": "victordeaguiarsouza@gmail.com"
-        }
-    ],
-    "config": {
-        "optimize-autoloader": true
-    },
+    "name"          : "margh/zoop-sdk",
+    "description"   : "Wrapper php para comunicação com a api zoop",
+    "type"          : "library",
+    "license"       : "Apache",
+    "authors": [{
+        "name"  : "Margh Consultoria de Desenvolvimento de Software",
+        "email" : "victor@margh.com.br"
+    }],
+    
     "require": {
-        "php": ">=5.5",
-        "ext-curl": "*",
-        "ext-json": "*",
-        "psr/log": "^1.1",
-        "guzzlehttp/guzzle": ">=6.2",
-        "italodeveloper/guzzle-zend": "^1.2"
+        "php-curl-class/php-curl-class" : "^7.1"
     },
-    "require-dev": {
-        "zendframework/zend-http": ">=2.5"
-    },
+    
     "autoload": {
+        
         "psr-4": {
-            "Zoop\\": "src/"
-        }
+            "Zoop\\": "src/Zoop"
+        },
+
+        "classmap" : [
+            "src/Zoop"
+        ]
     }
 }

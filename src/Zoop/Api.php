@@ -1,20 +1,21 @@
 <?php
 
-namespace Superlogica;
+namespace Zoop;
 
 /**
- * Responsável pela comunicação com a api superlogica
+ * Responsável pela comunicação com a api zoop
  * 
- * @author Diego Botelho <dibmartins@gmail.com>
- * @author Michel Teixeira <michel@odig.net>
- * @copyright (c) 2017-2018
- */
+ * @author Victor Aguiar <victor@margh.com>
+ * @copyright (c) 2020
+*/
 class Api {
     
     private $curl;
-    private $url;
-    private $appToken;
-    private $accessToken;
+    private $url = "https://api.zoop.ws/";
+    private $username;
+    private $password;
+    private $marketplaceId;
+    private $versao_api;
     private $timeout;
     private $headers = array();
 
@@ -23,7 +24,7 @@ class Api {
      * 
      * @param string $key
      * @param string $value
-     */
+    */
     public function addHeader($key, $value){
         
         if(!empty($key) && !empty($value)){
@@ -35,21 +36,21 @@ class Api {
      * Construtor
      * 
      * @param string $url
-     * @param string $appToken
-     * @param string $accessToken
-     * @param int $timeout
-     */
-    public function __construct($url, $appToken, $accessToken, $timeout){
+     * @param string $username
+     * @param string $password
+     * @param int    $timeout
+    */
+    public function __construct($username, $password, $marketplaceId, $versao_api = 'v2', $timeout = 120){
 
-        $this->curl        = new \Curl\Curl();
-        $this->url         = $url;
-        $this->appToken    = $appToken;
-        $this->accessToken = $accessToken;
-        $this->timeout     = $timeout;
+        $this->curl           = new \Curl\Curl();
+        $this->versao_api     = $versao_api;
+        $this->username       = $username;
+        $this->password       = $password;
+        $this->marketplaceId  = $marketplaceId;
+        $this->timeout        = $timeout;
 
-        $this->addHeader('Content-Type' , 'application/x-www-form-urlencoded');
-        $this->addHeader('app_token'    , $this->appToken);
-        $this->addHeader('access_token' , $this->accessToken);
+        $this->addHeader('Content-Type' , 'application/json');
+        $this->addHeader('Accept'       , 'application/json');
     }
 
     /**
@@ -58,19 +59,20 @@ class Api {
      * @param string $action post|put|get|delete
      * @param string endpoint
      * @param array $data Parâmetros da requisicao
-     * @param array $seconds Tempo em segundos para esperar a resposta do servidor
      * @throws \Exception
      * @return string Resposta do serviço
-     */
+    */
     public function execute($action, $endpoint, $data){
         
         try{
             
+            $this->curl->setBasicAuthentication($this->username, $this->password);
+
             $this->curl->setOpt(CURLOPT_RETURNTRANSFER , true);
             $this->curl->setOpt(CURLOPT_FOLLOWLOCATION , true);
             $this->curl->setOpt(CURLOPT_SSL_VERIFYPEER , false);
             $this->curl->setOpt(CURLOPT_SSL_VERIFYHOST , false);
-            
+
             foreach($this->headers as $key => $value){
                 
                 $this->curl->setHeader($key, $value);
@@ -78,11 +80,13 @@ class Api {
 
             $this->curl->setConnectTimeout($this->timeout);
 
-            $this->curl->$action($this->url . $endpoint, $data);
+            $url = $this->url . $this->versao_api .'/marketplaces/'. $this->marketplaceId .'/' . $endpoint;
+
+            $this->curl->$action($url, $data);
 
             if($this->curl->error) {
 
-                throw new \Superlogica\Exception($this->curl);
+                throw new \Zoop\Exception($this->curl);
             }
 
             return $this->curl->response;
@@ -92,4 +96,18 @@ class Api {
             throw $e;
         }        
     }
+
+    /**
+     * Seta a versao da api
+     * 
+     * @param string versao
+     * @throws \Exception
+     * @return string Resposta do serviço
+    */
+    public function setApiVersion($versao){
+        
+        $this->versao_api = $versao;
+ 
+    }
+
 }

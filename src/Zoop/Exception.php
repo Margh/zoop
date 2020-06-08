@@ -1,6 +1,6 @@
 <?php
 
-namespace Superlogica;
+namespace Zoop;
 
 class Exception extends \Exception {
     
@@ -9,11 +9,11 @@ class Exception extends \Exception {
     /**
      * Construtor
      * 
-     * @param string $appToken
-     * @param string $accessToken
-     */
+    */
     public function __construct(\Curl\Curl $request){
 
         $this->request = $request;
+
+        $this->message = $request->response->error->message;
     }
 }

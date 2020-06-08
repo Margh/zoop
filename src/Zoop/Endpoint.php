@@ -1,28 +1,28 @@
 <?php
 
-namespace Superlogica;
+namespace Zoop;
 
 /**
  * Define os comportamentos básicos de um endpoint na api
  * 
- * @author Diego Botelho <dibmartins@gmail.com>
- * @copyright (c) 2017
- */
+ * @author Victor Aguiar <victor@margh.com.br>
+ * @copyright (c) 2020
+*/
 abstract class Endpoint {
     
     protected $api;
 
     /**
      * @return string o nome do endpoint da model 
-     */
+    */
     abstract public function getEndpoint();
 
     /**
      * Construtor.
      * 
-     * @param \Superlogica\Api $api
-     */
-    public function __construct(\Superlogica\Api $api){
+     * @param \Zoop\Api $api
+    */
+    public function __construct(\Zoop\Api $api){
 
         $this->api = $api;
     }
@@ -32,7 +32,7 @@ abstract class Endpoint {
      * 
      * @param array $data = null Parâmetros da requisição
      * @return object Resposta do serviço
-     */
+    */
     public function post($data = null){
         
         try{
@@ -50,7 +50,7 @@ abstract class Endpoint {
      * 
      * @param array $data = null Parâmetros da requisição
      * @return object Resposta do serviço
-     */
+    */
     public function put($data = null){
         
         try{
@@ -68,7 +68,7 @@ abstract class Endpoint {
      * 
      * @param array $data = null Parâmetros da requisição
      * @return object Resposta do serviço
-     */
+    */
     public function get($data = null){
         
         try{
@@ -86,7 +86,7 @@ abstract class Endpoint {
      * 
      * @param array $data = null Parâmetros da requisição
      * @return object Resposta do serviço
-     */
+    */
     public function delete($data = null){
         
         try{
@@ -104,7 +104,7 @@ abstract class Endpoint {
      * 
      * @param array $data = null Parâmetros da requisição
      * @return object Resposta do serviço
-     */
+    */
     public function patch($data = null){
         
         try{
@@ -115,5 +115,6 @@ abstract class Endpoint {
             
             throw $e;
         }        
-    }    
+    }
+
 }
