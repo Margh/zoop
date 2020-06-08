@@ -39,18 +39,18 @@ abstract class Zoop
     private function getBundles()
     {
         return [
-            Marketplace\Transactions::class,
-            MarketPlace\Sellers::class,
-            WebHook\WebHook::class,
-            MarketPlace\Buyers::class,
-            Payment\CreditCard::class,
-            Payment\Ticket::class,
-            Plans\Plan::class,
-            Subscriptions\Subscription::class,
-            Invoices\Invoice::class,
-            MarketPlace\Cards::class,
-            MarketPlace\Tokens::class,
-            MarketPlace\Accounts::class
+            \Zoop\Marketplace\Transactions::class,
+            \Zoop\MarketPlace\Sellers::class,
+            \Zoop\WebHook\WebHook::class,
+            \Zoop\MarketPlace\Buyers::class,
+            \Zoop\Payment\CreditCard::class,
+            \Zoop\Payment\Ticket::class,
+            \Zoop\Plans\Plan::class,
+            \Zoop\Subscriptions\Subscription::class,
+            \Zoop\Invoices\Invoice::class,
+            \Zoop\MarketPlace\Cards::class,
+            \Zoop\MarketPlace\Tokens::class,
+            \Zoop\MarketPlace\Accounts::class
         ];
     }
 
