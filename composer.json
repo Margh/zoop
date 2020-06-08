@@ -2,7 +2,7 @@
     "name"          : "margh/zoop-sdk",
     "description"   : "Wrapper php para comunicação com a api zoop",
     "type"          : "library",
-    "license"       : "Apache",
+    "license"       : "MIT",
     "authors": [{
         "name"  : "Margh Consultoria de Desenvolvimento de Software",
         "email" : "victor@margh.com.br"
