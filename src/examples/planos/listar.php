@@ -1,15 +1,19 @@
 <?php
 
+try {
 
-try {   
     $api = require_once('../api.php');
 
-    $planos = $api->getAllPlans();
+    $api->setApiVersion('v2');
+
+    $plano = new \Zoop\Plans($api);
+
+    $plano = $plano->get();
 
     echo '<pre>';
-    print_r($planos);
+    print_r($plano);
 
 } catch (\Exception $e) {
-    
+
     echo $e->getMessage() . PHP_EOL;
 }

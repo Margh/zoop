@@ -4,12 +4,16 @@ try {
 
     $api = require_once('../api.php');
 
-    $assinaturas = $api->getAllSubscriptions();
-    
-    echo '<pre>';
-    print_r($assinaturas);
+    $api->setApiVersion('v2');
 
-} catch(\Exception $e){
+    $assinatura = new \Zoop\Subscriptions($api);
+
+    $assinatura = $assinatura->get();
+
+    echo '<pre>';
+    print_r($assinatura);
+
+} catch (\Exception $e) {
+
     echo $e->getMessage() . PHP_EOL;
-    //var_dump($e);
 }

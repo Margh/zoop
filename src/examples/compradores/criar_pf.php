@@ -4,13 +4,15 @@ try {
 
     $api = require_once('../api.php');
 
-    $id = '2dbc63f476db4a39bd210cbc36ead1ae';
+    $api->setApiVersion('v1');
 
-    $buyer = [
-        'first_name' => 'Victor',
-        'last_name'  => 'Aguiar',
-        'taxpayer_id' => '11836128770',
-        'email' => 'victor.kasulo@gmail.com',
+    $comprador = new \Zoop\Buyers($api);
+
+    $data = [
+        'first_name' => 'José',
+        'last_name'  => 'Souza',
+        'taxpayer_id' => '07873570061',
+        'email' => 'jose@gmail.com',
         'address' => [
             'line1' => 'Av Americas, 500',
             'line2' => 'Citta América',
@@ -22,8 +24,8 @@ try {
         ],
     ];
 
-    $comprador = $api->putBuyer($id, $buyer);
-    
+    $comprador = $comprador->post($data);
+
     echo '<pre>';
     print_r($comprador);
 

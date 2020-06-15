@@ -4,9 +4,19 @@ try {
 
     $api = require_once('../api.php');
 
-    $cnpj = '09578520000150';
+    $api->setApiVersion('v1');
 
-    $vendedor = $api->getSellerByCNPJ($cnpj);
+    $type = 'search';
+
+    $api->incrementUrl($type);
+
+    $vendedor = new \Zoop\Sellers($api);
+
+    $paramns = [
+        'ein' => '33622018000184'
+    ];
+
+    $vendedor = $vendedor->get($paramns);
 
     echo '<pre>';
     print_r($vendedor);

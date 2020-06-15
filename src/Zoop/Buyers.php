@@ -5,7 +5,6 @@ namespace Zoop;
 /**
  * Endpoint de buyers
  * 
- * @link http://superlogica.com/developers/api/#!/Clientes.json
  * @author Victor Aguiar <victor@margh.com.br>
  * @copyright (c) 2020
  */

@@ -4,9 +4,15 @@ try {
 
     $api = require_once('../api.php');
 
-	$id = '8e7759fda7e44ab485a16968554cfc84';
+    $api->setApiVersion('v1');
 
-    $boleto = $api->getTicket($id);
+	$id = '8e7759fda7e44ab485a16968554cfc84';
+    
+    $api->incrementUrl($id);
+
+    $boleto = new \Zoop\Boletos($api);
+
+    $boleto = $boleto->get();
 
     echo '<pre>';
     print_r($boleto);

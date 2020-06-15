@@ -4,24 +4,33 @@ try {
 
     $api = require_once('../api.php');
 
-    $newSubscription =[
-        "plan"             => "42473a92752a45b48c7a0ce48d375298", //id plano
+    //usar a v2 para assinaturas
+    $api->setApiVersion('v2');
+
+    //não adicionar esse header direto no construtor da api
+    //isso causará problema em outro endpoint
+    $api->addHeader('content-type', 'application/json');
+
+    $assinatura = new \Zoop\Subscriptions($api);
+
+    $data =[
+        "plan"             => "54d4da147f5d43608cdfb4e64bd007da", //id plano existente
         "on_behalf_of"     => "3cacf5fb446e4c3abf969157143942c2", //id vendedor
         "customer"         => "2dbc63f476db4a39bd210cbc36ead1ae", //id comprador  
         "payment_method"   => "credit",
-        "due_date"         => "2020-07-01",
-        "due_since_date"   => "2020-06-01",
-        "expiration_date"  => "2020-07-01",
-        "amount"           => "18000",
-        "currency"         => "BRL",
-        "grace_period"     => "7",
-        "tolerance_period" => "5"
+        "due_date"         => "2020-08-01", //data da próxima cobrança
+        "due_since_date"   => "2020-08-01", //data da primeira cobrança da assinatura
+        //"expiration_date"  => "2020-08-01", //data final da assinatura
+        "amount"           => "10000", //valor em centavos
+        "currency"         => "BRL", //moeda utilizada, no formato ISO4217
+        "grace_period"     => "7", //perído (dias) de carência para a primeira cobrança da assinatura
+        "tolerance_period" => "5" //perído de tolerancia caso haja falha de pagamento
     ];
 
-    $plano = $api->createSubscription($newSubscription);
+    $assinatura = $assinatura->post($data);
     
     echo '<pre>';
-    print_r($plano);
+    print_r($assinatura);
 
 } catch(\Exception $e){
     echo $e->getMessage() . PHP_EOL;

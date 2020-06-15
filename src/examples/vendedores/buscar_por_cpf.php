@@ -4,9 +4,19 @@ try {
 
     $api = require_once('../api.php');
 
-    $cpf = '72857663056';
+    $api->setApiVersion('v1');
+    
+    $type = 'search';
 
-    $vendedor = $api->getSellerByCPF($cpf);
+    $api->incrementUrl($type);
+
+    $vendedor = new \Zoop\Sellers($api);
+    
+    $paramns = [
+        'taxpayer_id' => '17367530020'
+    ];
+
+    $vendedor = $vendedor->get($paramns);
 
     echo '<pre>';
     print_r($vendedor);

@@ -15,6 +15,7 @@ class Api {
     private $username;
     private $password;
     private $marketplaceId;
+    private $incrementUrl = '';
     private $versao_api;
     private $timeout;
     private $headers = array();
@@ -49,8 +50,7 @@ class Api {
         $this->marketplaceId  = $marketplaceId;
         $this->timeout        = $timeout;
 
-        $this->addHeader('Content-Type' , 'application/json');
-        $this->addHeader('Accept'       , 'application/json');
+        //$this->addHeader('accept', 'application/json');
     }
 
     /**
@@ -80,7 +80,7 @@ class Api {
 
             $this->curl->setConnectTimeout($this->timeout);
 
-            $url = $this->url . $this->versao_api .'/marketplaces/'. $this->marketplaceId .'/' . $endpoint;
+            $url = $this->url . $this->versao_api .'/marketplaces/'. $this->marketplaceId .'/' .$endpoint. '/' .$this->incrementUrl;
 
             $this->curl->$action($url, $data);
 
@@ -105,8 +105,21 @@ class Api {
      * @return string Resposta do serviço
     */
     public function setApiVersion($versao){
-        
+
         $this->versao_api = $versao;
+ 
+    }
+
+    /**
+     * incrementa a url
+     * 
+     * @param string $value
+     * @throws \Exception
+     * @return string Resposta do serviço
+    */
+    public function incrementUrl($value){
+
+        $this->incrementUrl = $value;
  
     }
 

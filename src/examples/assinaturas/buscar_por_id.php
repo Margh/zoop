@@ -4,14 +4,20 @@ try {
 
     $api = require_once('../api.php');
 
-    $id = '58b5962cf47e410fa590dc9759ba6202';
+    $api->setApiVersion('v2');
 
-    $assinatura = $api->getSubscription($id);
-    
+    $id = '9d4fd37f590d4771974e1ff909f9f592';
+
+    $api->incrementUrl($id);
+
+    $assinatura = new \Zoop\Subscriptions($api);
+
+    $assinatura = $assinatura->get();
+
     echo '<pre>';
     print_r($assinatura);
 
-} catch(\Exception $e){
+} catch (\Exception $e) {
+
     echo $e->getMessage() . PHP_EOL;
-    //var_dump($e);
 }

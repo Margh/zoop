@@ -3,8 +3,10 @@
 try {
 
     $api = require_once('../api.php');
+    
+    $api->setApiVersion('v1');
 
-    $card = [
+    $data = [
         "holder_name"     => "João Silva",
         "expiration_month"=> "03",
         "expiration_year" => "2018",
@@ -12,9 +14,9 @@ try {
         "card_number"     => "5201561050024014"
     ];
 
-    $api->setApiVersion('v1');
+    $card = new \Zoop\Cards($api);
 
-    $card = $api->createCard($card);
+    $card = $card->post($data);
 
     echo '<pre>';
     print_r($card);

@@ -1,17 +1,23 @@
 <?php
 
+try {
 
-try {   
     $api = require_once('../api.php');
 
-    $id = 'fc2ecfa426954d9cb11abaecd790d4a4';
+    $api->setApiVersion('v2');
 
-    $plano = $api->getPlan($id);
+    $id = '54d4da147f5d43608cdfb4e64bd007da';
+
+    $api->incrementUrl($id);
+
+    $plano = new \Zoop\Plans($api);
+
+    $plano = $plano->get();
 
     echo '<pre>';
     print_r($plano);
 
 } catch (\Exception $e) {
-    
+
     echo $e->getMessage() . PHP_EOL;
 }

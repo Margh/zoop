@@ -4,18 +4,19 @@ try {
 
     $api = require_once('../api.php');
 
-    $id = 'ac904dc665fa4320ac2ac43d37544759';
+    $api->setApiVersion('v2');
 
-    //Deleta o plano do Marketplace
-    $response = $api->deletePlan($id);
+    $id = '54d4da147f5d43608cdfb4e64bd007da';
+    
+    $api->incrementUrl($id);
+
+    $plano = new \Zoop\Plans($api);
+
+    $plano = $plano->delete();
 
     echo '<pre>';
-    print_r($response);
+    print_r($plano);
 
-    //Erro retornado caso o comprador não exista
-    //{"error":{"status":"Not Found","status_code":404,"type":"invalid_request_error","category":"resource_not_found","message":"Sorry, the buyer you are trying to use does not exist or has been deleted."}}
-
-} catch (\Exception $e) {
-
+} catch(\Exception $e){
     echo $e->getMessage() . PHP_EOL;
 }

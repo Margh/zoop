@@ -14,6 +14,6 @@ class Exception extends \Exception {
 
         $this->request = $request;
 
-        $this->message = $request->response->error->message;
+        $this->message = !isset($request->response->error)? $request->rawResponse : $request->response->error->message;
     }
 }

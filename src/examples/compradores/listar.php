@@ -1,10 +1,18 @@
 <?php
 
+try {
 
-try {   
     $api = require_once('../api.php');
 
-    $compradores = $api->getAllBuyers();
+    $api->setApiVersion('v1');
+    
+    $compradores = new \Zoop\Buyers($api);
+
+    $compradores = $compradores->get([
+        'limit'=>'20',
+        'sort' => 'time-descending', 
+        'offset' => 0
+    ]);
 
     echo '<pre>';
     print_r($compradores);

@@ -4,7 +4,15 @@ try {
 
     $api = require_once('../api.php');
 
-    $arrDados = [
+    $api->setApiVersion('v1');
+
+    $type = 'businesses';
+
+    $api->incrementUrl($type);
+
+    $vendedor = new \Zoop\Sellers($api);
+
+    $data = [
         "fiscal_responsibility" => "",
         'owner'                 => [
             'first_name'   => 'Victor',
@@ -37,7 +45,7 @@ try {
         'mcc'                   => '',
     ];
 
-    $vendedor = $api->createSeller($arrDados);
+    $vendedor = $vendedor->post($data);
     //Erro retornado caso já exista um vendedor cadastrado com o cnpj informado.
     //{"error":{"status":"Conflict","status_code":409,"type":"invalid_request_error","category":"duplicate_taxpayer_id","message":"Customer with ein \"93219324000104\" already exists."}}
 

@@ -4,9 +4,15 @@ try {
 
     $api = require_once('../api.php');
 
-    $idComprador = '2dbc63f476db4a39bd210cbc36ead1ae';
+    $api->setApiVersion('v1');
 
-    $comprador = $api->getBuyer($idComprador);
+    $id = '0bfc31ea2cba4e1dbfd9705658ef3aec';
+
+    $api->incrementUrl($id);
+
+    $comprador = new \Zoop\Buyers($api);
+
+    $comprador = $comprador->get();
 
     echo '<pre>';
     print_r($comprador);
