@@ -7,38 +7,49 @@ Observação a contribuidores: só será mergido bundles com o mesmo padrão de 
 
 instalando via composer
 ```
-composer require italodeveloper/zoop-sdk
+composer require margh/zoop
 ```
 
 ## Criando o cliente para realizar as operações da Zoop
 ``` php
 <?php
-use Zoop\Core\Config;
-use Zoop\ZoopClient;
 
-require __DIR__ . '/../vendor/autoload.php';
+require_once('../../../vendor/autoload.php');
 
-$token = 'zpk_test_Xxxxxx'; /** Token gerado ADM Mkt Zoop */
-$marketplace = 'd0024d3f01ea4xxxxxxxxxx'; /* ID do Marketplace **/
-$vendedor = '38e0c71e9c7c465080bxxxxxxxxx'; /** ID do vendedor do marketplace */
+$marketplaceId = ''; //id do marketplace
+$token         = ''; //username
+$vendedor      = ''; //password
+//$versao_api    = 'v2';
 
-$client = new ZoopClient(
-    Config::configure($token, $marketplace, $vendedor)
-);
+// Obtenha os tokens de teste com o zoop
+return new \Zoop\Api($token, $vendedor, $marketplaceId);
 ```
 O cliente de integração pode utilizar a seguinte combinação de metodos
 que já estão prontos e abstraidos para simples utilização.  
 
 ``` php
-try {   
-    $listarTransacoes = $client->getAllTransactions();
-    print_r($listarTransacoes);
-    #var_dump($listarTransacoes);
+try {
+
+    $api = require_once('../api.php');
+
+    $api->setApiVersion('v1');
+
+    $transaction = new \Zoop\Transactions($api);
+
+    $transaction = $transaction->get([
+        'limit'=>'20',
+        'sort' => 'time-descending'
+    ]);
+
+    echo '<pre>';
+    print_r($transaction);
+
 } catch (\Exception $e) {
+
     echo $e->getMessage() . PHP_EOL;
 }
 ```
 Para as demais funções, acesse nossa wiki e confira: 
-[Zoop SDK Wiki](https://github.com/italodeveloper/zoop-sdk/wiki).
+[Zoop SDK Wiki](https://github.com/margh/zoop/wiki).
 
-Desenvolvido com :heart: por [italodeveloper](https://www.linkedin.com/in/%C3%ADtalo-araujo/) e contribuidores.
+Desenvolvido por [margh](https://www.margh.com.br/) e contribuidores.
