@@ -4,7 +4,7 @@ try {
 
     $api = require_once('../api.php');
 
-    $api->setApiVersion('v1');
+    $api->setApiVersion('v2');
 
     $data = [
         'amount'               => 1000, //centavos

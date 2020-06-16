@@ -1,15 +1,23 @@
 <?php
 
-try {   
-    
-    $api = require_once('../api.php');
+try {
 
-    $listarTransacoes = $api->getAllTransactions();
+    $api = require_once('../api.php');
+    
+    //para a v2 não funciona
+    $api->setApiVersion('v1');
+
+    $transaction = new \Zoop\Transactions($api);
+
+    $transaction = $transaction->get([
+        'limit'=>'20',
+        'sort' => 'time-descending'
+    ]);
 
     echo '<pre>';
-    print_r($listarTransacoes);
+    print_r($transaction);
 
 } catch (\Exception $e) {
-    
+
     echo $e->getMessage() . PHP_EOL;
 }

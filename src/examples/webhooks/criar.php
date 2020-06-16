@@ -3,18 +3,21 @@
 try {
 
     $api = require_once('../api.php');
+    
+    $api->setApiVersion('v1');
+    
+    $api->addHeader('content-type', 'application/json');
 
-    //https://docs.zoop.com.br/eventos-e-webhooks/guias/cadastrando-um-webhook#cadastro-de-webhooks
-    $webhook = [
+    $data = [
         'method'      => 'POST',
         'url'         => 'https://whteste.vendana.com.br',
         'description' => 'WebHook teste Vendana',
         'event'       => ['plan.created']
     ];
 
-    $api->setApiVersion('v1');
+    $webhook = new \Zoop\Webhooks($api);
 
-    $webhook = $api->createWebHook($webhook);
+    $webhook = $webhook->post($data);
 
     echo '<pre>';
     print_r($webhook);

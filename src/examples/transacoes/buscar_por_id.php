@@ -1,17 +1,23 @@
 <?php
 
-try {   
-    
+try {
+
     $api = require_once('../api.php');
 
-    $idTransacao = '0b6dc51da31945a68400709b3ac9f592';
+    $api->setApiVersion('v2');
 
-    $transacao = $api->getTransaction($idTransacao);
+    $id = 'bea2119d51d34fc395bd0e0a0aaff298';
+
+    $api->incrementUrl($id);
+
+    $webhook = new \Zoop\Transactions($api);
+
+    $webhook = $webhook->get();
 
     echo '<pre>';
-    print_r($transacao);
+    print_r($webhook);
 
 } catch (\Exception $e) {
-    
+
     echo $e->getMessage() . PHP_EOL;
 }
