@@ -4,7 +4,13 @@ try {
 
     $api = require_once('../api.php');
 
-    $account = [
+    $api->setApiVersion('v1');
+
+    $api->addHeader('content-type', 'application/json');
+
+    $fatura = new \Zoop\BankAccounts($api);
+
+    $data = [
         "bank_code"      => 341,
         "routing_number" => 6090,
         "holder_name"    => "Papito's PizzariaAAA",
@@ -13,14 +19,12 @@ try {
         "type"           => "checking"
     ];
 
-    $api->setApiVersion('v1');
-
-    $account = $api->createAccount($account);
+    $fatura = $fatura->put($data);
     
     echo '<pre>';
-    print_r($account);
+    print_r($fatura);
 
 } catch(\Exception $e){
     echo $e->getMessage() . PHP_EOL;
-    var_dump($e);
+    //var_dump($e);
 }

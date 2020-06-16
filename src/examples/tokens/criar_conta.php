@@ -3,8 +3,16 @@
 try {
 
     $api = require_once('../api.php');
+    
+    $api->addHeader('content-type', 'application/json');
 
-    $account = [
+    $api->setApiVersion('v1');
+
+    $increment = 'tokens';
+
+    $api->incrementUrl($increment);
+
+    $data = [
         "bank_code"      => 341,
         "routing_number" => 6090,
         "holder_name"    => "Papito's PizzariaAAA",
@@ -13,9 +21,9 @@ try {
         "type"           => "checking"
     ];
 
-    $api->setApiVersion('v1');
+    $account = new \Zoop\BankAccounts($api);
 
-    $account = $api->createAccount($account);
+    $account = $account->post($data);
     
     echo '<pre>';
     print_r($account);

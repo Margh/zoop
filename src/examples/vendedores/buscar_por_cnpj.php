@@ -13,7 +13,7 @@ try {
     $vendedor = new \Zoop\Sellers($api);
 
     $paramns = [
-        'ein' => '33622018000184'
+        'ein' => '93219324000104'
     ];
 
     $vendedor = $vendedor->get($paramns);

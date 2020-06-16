@@ -1,22 +1,27 @@
 <?php
 
+try {
 
-try {   
     $api = require_once('../api.php');
 
-    $content = [
+    $api->setApiVersion('v1');
+
+    $api->addHeader('content-type', 'application/json');
+
+    $plano = new \Zoop\BankAccounts($api);
+
+    //O id do customer deve ser igual ao que foi usado no token
+    $data = [
+        "token"    => "248c3a0c1b354fac9639da2edcf0fea8",
         "customer" => "0107577210ce4bc1b79a761f8f17c255",
-        "token"    => "e56e35b14651421e8960f68caea618d1",
     ];
 
-    $api->setApiVersion('v1');
-    
-    $account = $api->associateAccount($content);
+    $plano = $plano->post($data);
 
     echo '<pre>';
-    print_r($account);
+    print_r($plano);
 
-} catch (\Exception $e) {
-    
+} catch(\Exception $e){
     echo $e->getMessage() . PHP_EOL;
+    //var_dump($e);
 }

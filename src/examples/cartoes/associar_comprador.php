@@ -14,7 +14,7 @@ try {
     $plano = new \Zoop\Cards($api);
 
     $data = [
-        "token"    => "",
+        "token"    => "5be7c86a1bdb4abd94f63af07053e3fc",
         "customer" => "0bfc31ea2cba4e1dbfd9705658ef3aec",
     ];
 

@@ -6,18 +6,17 @@ try {
 
     $api->setApiVersion('v1');
 
-	$id = 'a63999b558aa41c186cc80d355853483';
+    $id = 'bb70c02b35364d5fab4d509f10f8f186';
     
     $api->incrementUrl($id);
 
-    $boleto = new \Zoop\BankAccounts($api);
+    $fatura = new \Zoop\Cards($api);
 
-    $boleto = $boleto->get();
+    $fatura = $fatura->delete();
 
     echo '<pre>';
-    print_r($boleto);
+    print_r($fatura);
 
 } catch(\Exception $e){
     echo $e->getMessage() . PHP_EOL;
-    //var_dump($e);
 }

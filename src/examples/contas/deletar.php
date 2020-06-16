@@ -4,16 +4,19 @@ try {
 
     $api = require_once('../api.php');
 
-    $id = 'f785362a8f3a4f3bba26c881e621864d';
-
     $api->setApiVersion('v1');
 
-    $response = $api->deleteAccount($id);
+    $id = 'a63999b558aa41c186cc80d355853483';
+    
+    $api->incrementUrl($id);
+
+    $vendedor = new \Zoop\BankAccounts($api);
+
+    $vendedor = $vendedor->delete();
 
     echo '<pre>';
-    print_r($response);
+    print_r($vendedor);
 
-} catch (\Exception $e) {
-
+} catch(\Exception $e){
     echo $e->getMessage() . PHP_EOL;
 }

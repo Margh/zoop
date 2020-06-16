@@ -6,11 +6,11 @@ try {
 
     $api->setApiVersion('v1');
 
-	$id = 'a63999b558aa41c186cc80d355853483';
+	$id = 'caf04c8ed9344c43a951b1b2376f2660';
     
     $api->incrementUrl($id);
 
-    $boleto = new \Zoop\BankAccounts($api);
+    $boleto = new \Zoop\Cards($api);
 
     $boleto = $boleto->get();
 
