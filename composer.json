@@ -1,5 +1,5 @@
 {
-    "name"          : "margh/zoop-sdk",
+    "name"          : "margh/zoop",
     "description"   : "Wrapper php para comunicação com a api zoop",
     "type"          : "library",
     "license"       : "MIT",
