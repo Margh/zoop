@@ -6,10 +6,6 @@ try {
 
     $api->setApiVersion('v1');
 
-    $id = 'caf04c8ed9344c43a951b1b2376f2660';
-    
-    $api->incrementUrl($id);
-
     $plano = new \Zoop\Cards($api);
 
     $data = [
@@ -18,10 +14,12 @@ try {
         "expiration_year" => "2018",
         "security_code"   => "123",
         "card_number"     => "5201561050024014",
-        //"is_active"       => true
+        "is_active"       => 0
     ];
 
-    $plano = $plano->put($data);
+    $id = 'caf04c8ed9344c43a951b1b2376f2660';
+
+    $plano = $plano->edit($id, $data);
     
     echo '<pre>';
     print_r($plano);

@@ -30,7 +30,7 @@ try {
 
     $card = new \Zoop\Transactions($api);
 
-    $card = $card->post($data);
+    $card = $card->create($data);
 
     echo '<pre>';
     print_r($card);

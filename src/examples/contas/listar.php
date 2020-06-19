@@ -8,7 +8,7 @@ try {
 
     $contas = new \Zoop\BankAccounts($api);
 
-    $contas = $contas->get([
+    $contas = $contas->searchAll([
         'limit'=>'20',
         'sort' => 'time-descending', 
         'offset' => 0

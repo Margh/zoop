@@ -9,7 +9,7 @@ try {
     
     $vendedores = new \Zoop\Sellers($api);
 
-    $vendedores = $vendedores->get([
+    $vendedores = $vendedores->searchAll([
         'limit'=>'20',
         'sort' => 'time-descending', 
         'offset' => 0

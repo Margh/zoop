@@ -6,11 +6,9 @@ try {
 
     $api->setApiVersion('v1');
 
-    $id = '6fa5691c0169488fa0a4f8e16eb639bd';
-    
-    $api->incrementUrl($id);
-
     $comprador = new \Zoop\Buyers($api);
+    
+    $id = '6fa5691c0169488fa0a4f8e16eb639bd';
 
     $comprador = $comprador->delete($id);
 

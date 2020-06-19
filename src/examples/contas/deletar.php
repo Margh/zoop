@@ -6,13 +6,11 @@ try {
 
     $api->setApiVersion('v1');
 
-    $id = 'a63999b558aa41c186cc80d355853483';
-    
-    $api->incrementUrl($id);
-
     $vendedor = new \Zoop\BankAccounts($api);
+    
+    $id = 'a63999b558aa41c186cc80d355853483';
 
-    $vendedor = $vendedor->delete();
+    $vendedor = $vendedor->delete($id);
 
     echo '<pre>';
     print_r($vendedor);

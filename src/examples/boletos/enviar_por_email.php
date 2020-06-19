@@ -7,15 +7,11 @@ try {
     //usar a v1 para boletos
     $api->setApiVersion('v1');
 
+    $boleto = new \Zoop\Boletos($api);
+    
 	$id = '8e7759fda7e44ab485a16968554cfc84';
 
-    $complemento = '/emails';
-
-    $api->incrementUrl($id.$complemento);
-
-    $boleto = new \Zoop\Boletos($api);
-
-    $boleto = $boleto->post();
+    $boleto = $boleto->sendByEmail($id);
 
     echo '<pre>';
     print_r($boleto);

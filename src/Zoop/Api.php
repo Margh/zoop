@@ -15,7 +15,7 @@ class Api {
     private $username;
     private $password;
     private $marketplaceId;
-    private $incrementUrl = '';
+    private $complementUrl = '';
     private $versao_api;
     private $timeout;
     private $headers = array();
@@ -80,7 +80,7 @@ class Api {
 
             $this->curl->setConnectTimeout($this->timeout);
 
-            $url = $this->url . $this->versao_api .'/marketplaces/'. $this->marketplaceId .'/' .$endpoint. '/' .$this->incrementUrl;
+            $url = $this->url . $this->versao_api .'/marketplaces/'. $this->marketplaceId .'/' .$endpoint. '/' .$this->complementUrl;
 
             $this->curl->$action($url, $data);
 
@@ -117,9 +117,9 @@ class Api {
      * @throws \Exception
      * @return string Resposta do serviço
     */
-    public function incrementUrl($value){
+    public function complementUrl($value){
 
-        $this->incrementUrl = $value;
+        $this->complementUrl = $value;
  
     }
 

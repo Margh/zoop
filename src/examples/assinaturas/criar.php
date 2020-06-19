@@ -7,10 +7,6 @@ try {
     //usar a v2 para assinaturas
     $api->setApiVersion('v2');
 
-    //não adicionar esse header direto no construtor da api
-    //isso causará problema em outro endpoint
-    $api->addHeader('content-type', 'application/json');
-
     $assinatura = new \Zoop\Subscriptions($api);
 
     $data =[
@@ -27,7 +23,7 @@ try {
         "tolerance_period" => "5" //perído de tolerancia caso haja falha de pagamento
     ];
 
-    $assinatura = $assinatura->post($data);
+    $assinatura = $assinatura->create($data);
     
     echo '<pre>';
     print_r($assinatura);

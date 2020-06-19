@@ -5,15 +5,12 @@ try {
     $api = require_once('../api.php');
 
     $api->setApiVersion('v2');
-
-    $id          = '608b41fac101411cad451ebd94e3d0c3';
-    $complemento = '/approve';
-
-    $api->incrementUrl($id.$complemento);
-
+    
     $fatura = new \Zoop\Invoices($api);
+    
+    $id = '608b41fac101411cad451ebd94e3d0c3';
 
-    $fatura = $fatura->post();
+    $fatura = $fatura->approve($id);
 
     echo '<pre>';
     print_r($fatura);

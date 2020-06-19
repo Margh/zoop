@@ -6,11 +6,7 @@ try {
 
     $api->setApiVersion('v2');
 
-    $id = 'e82efe709e0a4eee9f484d7e41a1ce42';
-
-    $complemento = '/void';
-
-    $api->incrementUrl($id.$complemento);
+    $id = 'bea2119d51d34fc395bd0e0a0aaff298';
 
     $data = [
         'on_behalf_of' => '3cacf5fb446e4c3abf969157143942c2',
@@ -19,7 +15,7 @@ try {
 
     $card = new \Zoop\Transactions($api);
 
-    $card = $card->post($data);
+    $card = $card->void($id, $data);
 
     echo '<pre>';
     print_r($card);

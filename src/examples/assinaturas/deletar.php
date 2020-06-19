@@ -6,13 +6,11 @@ try {
 
     $api->setApiVersion('v2');
 
-    $id = '58b5962cf47e410fa590dc9759ba6202';
-    
-    $api->incrementUrl($id);
-
     $assinatura = new \Zoop\Subscriptions($api);
+    
+    $id = '58b5962cf47e410fa590dc9759ba6202';
 
-    $assinatura = $assinatura->delete();
+    $assinatura = $assinatura->delete($id);
 
     echo '<pre>';
     print_r($assinatura);

@@ -6,14 +6,11 @@ try {
 
     $api->setApiVersion('v2');
 
-    $id          = '3cacf5fb446e4c3abf969157143942c2';
-    $complemento = '/invoices';
+    $vendedor = new \Zoop\Sellers($api);
+    
+    $id = '3cacf5fb446e4c3abf969157143942c2';
 
-    $api->incrementUrl($id.$complemento);
-
-    $fatura = new \Zoop\Sellers($api);
-
-    $fatura = $fatura->get([
+    $fatura = $vendedor->searchInvoices($id, [
         'limit'=>'20',
         'sort' => 'time-descending', 
         'offset' => 0

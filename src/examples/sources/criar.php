@@ -6,12 +6,10 @@ try {
 
     $api->setApiVersion('v1');
 
-    $api->addHeader('content-type', 'application/json');
-
     $source = new \Zoop\Sources($api);
 
     $data = [
-        "usage" => "single_use",
+        "usage"        => "single_use",
         "amount"       => 1000,
         "currency"     => "BRL",
         "description"  => "venda 152",
@@ -42,7 +40,7 @@ try {
         ]
     ];
 
-    $source = $source->post($data);
+    $source = $source->create($data);
     
     echo '<pre>';
     print_r($source);

@@ -8,7 +8,7 @@ try {
     
     $compradores = new \Zoop\Buyers($api);
 
-    $compradores = $compradores->get([
+    $compradores = $compradores->searchAll([
         'limit'=>'20',
         'sort' => 'time-descending', 
         'offset' => 0

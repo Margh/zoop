@@ -8,7 +8,7 @@ try {
 
     $plano = new \Zoop\Plans($api);
 
-    $plano = $plano->get();
+    $plano = $plano->searchAll();
 
     echo '<pre>';
     print_r($plano);

@@ -6,13 +6,11 @@ try {
 
     $api->setApiVersion('v1');
 
-    $id = 'eed4a08ec54c4cd3acf2232f0eaba023';
-
-    $api->incrementUrl($id);
-
     $webhook = new \Zoop\Webhooks($api);
 
-    $webhook = $webhook->get();
+    $id = 'eed4a08ec54c4cd3acf2232f0eaba023';
+
+    $webhook = $webhook->searchById($id);
 
     echo '<pre>';
     print_r($webhook);

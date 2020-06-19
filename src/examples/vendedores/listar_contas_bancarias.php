@@ -6,15 +6,11 @@ try {
 
     $api->setApiVersion('v1');
 
-    $id = '3cacf5fb446e4c3abf969157143942c2';
-    
-    $complemento = '/bank_accounts';
-
-    $api->incrementUrl($id.$complemento);
-
     $contas = new \Zoop\Sellers($api);
+    
+    $id = '3cacf5fb446e4c3abf969157143942c2';
 
-    $contas = $contas->get([
+    $contas = $contas->searchAccounts($id, [
         'limit'=>'20',
         'sort' => 'time-descending', 
         'offset' => 0

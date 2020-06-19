@@ -24,7 +24,7 @@ try {
         ],
     ];
 
-    $comprador = $comprador->post($data);
+    $comprador = $comprador->create($data);
 
     echo '<pre>';
     print_r($comprador);

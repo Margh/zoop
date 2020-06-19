@@ -6,13 +6,11 @@ try {
 
     $api->setApiVersion('v1');
 
-    $id = '815910b0a16a4bd5b1fb62777bb7b696';
-
-    $api->incrementUrl($id);
-
     $vendedor = new \Zoop\Sellers($api);
+    
+    $id = 'eaac5328426b476880c95d19956e66ed';
 
-    $vendedor = $vendedor->get();
+    $vendedor = $vendedor->searchById($id);
 
     echo '<pre>';
     print_r($vendedor);

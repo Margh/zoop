@@ -6,13 +6,11 @@ try {
 
     $api->setApiVersion('v1');
 
-    $id = 'eed4a08ec54c4cd3acf2232f0eaba023';
-    
-    $api->incrementUrl($id);
-
     $webhook = new \Zoop\Webhooks($api);
+    
+    $id = 'eed4a08ec54c4cd3acf2232f0eaba023';
 
-    $webhook = $webhook->delete();
+    $webhook = $webhook->delete($id);
 
     echo '<pre>';
     print_r($webhook);

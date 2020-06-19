@@ -5,8 +5,6 @@ try {
     $api = require_once('../api.php');
     
     $api->setApiVersion('v1');
-    
-    $api->addHeader('content-type', 'application/json');
 
     $data = [
         'method'      => 'POST',
@@ -17,7 +15,7 @@ try {
 
     $webhook = new \Zoop\Webhooks($api);
 
-    $webhook = $webhook->post($data);
+    $webhook = $webhook->create($data);
 
     echo '<pre>';
     print_r($webhook);

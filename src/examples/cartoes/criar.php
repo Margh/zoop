@@ -1,6 +1,27 @@
 <?php
 
-//É possivel cadastrar o cartão por meio do token
-//para isso veja o exemplo na pasta 'tokens'.
-//Também é possível criar uma transacao com cartão de credito sem ter que 
-//cadastra-lo.
+try {
+
+    $api = require_once('../api.php');
+
+    $api->setApiVersion('v1');
+
+    $data = [
+        "holder_name"     => "João Silva",
+        "expiration_month"=> "03",
+        "expiration_year" => "2018",
+        "security_code"   => "123",
+        "card_number"     => "5201561050024014"
+    ];
+
+    $card = new \Zoop\Cards($api);
+
+    $card = $card->create($data);
+
+    echo '<pre>';
+    print_r($card);
+
+} catch(\Exception $e){
+    echo $e->getMessage() . PHP_EOL;
+    //var_dump($e);
+}

@@ -6,13 +6,11 @@ try {
 
     $api->setApiVersion('v1');
 
-    $id = 'bb70c02b35364d5fab4d509f10f8f186';
-    
-    $api->incrementUrl($id);
-
     $fatura = new \Zoop\Cards($api);
+    
+    $id = 'bb70c02b35364d5fab4d509f10f8f186';
 
-    $fatura = $fatura->delete();
+    $fatura = $fatura->delete($id);
 
     echo '<pre>';
     print_r($fatura);

@@ -6,13 +6,11 @@ try {
 
     $api->setApiVersion('v1');
 
-    $id = '815910b0a16a4bd5b1fb62777bb7b696';
-    
-    $api->incrementUrl($id);
-
     $vendedor = new \Zoop\Sellers($api);
+    
+    $id = '815910b0a16a4bd5b1fb62777bb7b696';
 
-    $vendedor = $vendedor->delete();
+    $vendedor = $vendedor->delete($id);
 
     echo '<pre>';
     print_r($vendedor);

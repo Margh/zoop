@@ -7,10 +7,6 @@ try {
     //usar a v2 para planos
     $api->setApiVersion('v2');
 
-    //não adicionar esse header direto no construtor da api
-    //isso causará problema em outro endpoint
-    $api->addHeader('content-type', 'application/json');
-
     $plano = new \Zoop\Plans($api);
 
     $data = [
@@ -25,7 +21,7 @@ try {
         "tolerance_period" => 5
     ];
 
-    $plano = $plano->post($data);
+    $plano = $plano->create($data);
     
     echo '<pre>';
     print_r($plano);

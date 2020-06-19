@@ -3,14 +3,8 @@
 try {
 
     $api = require_once('../api.php');
-    
-    $api->addHeader('content-type', 'application/json');
 
     $api->setApiVersion('v1');
-
-    $increment = 'tokens';
-
-    $api->incrementUrl($increment);
 
     $data = [
         "bank_code"      => 341,
@@ -23,7 +17,7 @@ try {
 
     $account = new \Zoop\BankAccounts($api);
 
-    $account = $account->post($data);
+    $account = $account->create($data);
     
     echo '<pre>';
     print_r($account);

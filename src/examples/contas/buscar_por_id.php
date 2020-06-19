@@ -6,13 +6,11 @@ try {
 
     $api->setApiVersion('v1');
 
-	$id = 'a63999b558aa41c186cc80d355853483';
-    
-    $api->incrementUrl($id);
-
     $boleto = new \Zoop\BankAccounts($api);
+    
+	$id = 'c4e79189e67e4ccc8732695ff293e33b';
 
-    $boleto = $boleto->get();
+    $boleto = $boleto->searchById($id);
 
     echo '<pre>';
     print_r($boleto);

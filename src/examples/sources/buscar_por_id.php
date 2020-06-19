@@ -6,13 +6,11 @@ try {
 
     $api->setApiVersion('v1');
 
+    $plano = new \Zoop\Sources($api);
+    
     $id = 'fa6dd7c08e4247e5830c900f397184d9';
 
-    $api->incrementUrl($id);
-
-    $plano = new \Zoop\Sources($api);
-
-    $plano = $plano->get();
+    $plano = $plano->searchById($id);
 
     echo '<pre>';
     print_r($plano);

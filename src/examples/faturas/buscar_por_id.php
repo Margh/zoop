@@ -6,13 +6,11 @@ try {
 
     $api->setApiVersion('v2');
 
-    $id = '608b41fac101411cad451ebd94e3d0c3';
-
-    $api->incrementUrl($id);
-
     $fatura = new \Zoop\Invoices($api);
-
-    $fatura = $fatura->get();
+    
+    $id = '608b41fac101411cad451ebd94e3d0c3';
+    
+    $fatura = $fatura->searchById($id);
 
     echo '<pre>';
     print_r($fatura);

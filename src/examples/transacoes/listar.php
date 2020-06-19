@@ -9,7 +9,7 @@ try {
 
     $transaction = new \Zoop\Transactions($api);
 
-    $transaction = $transaction->get([
+    $transaction = $transaction->searchAll([
         'limit'=>'20',
         'sort' => 'time-descending'
     ]);

@@ -6,9 +6,7 @@ try {
 
     $api->setApiVersion('v1');
 
-    $api->addHeader('content-type', 'application/json');
-
-    $fatura = new \Zoop\BankAccounts($api);
+    $conta = new \Zoop\BankAccounts($api);
 
     $data = [
         "bank_code"      => 341,
@@ -16,13 +14,16 @@ try {
         "holder_name"    => "Papito's PizzariaAAA",
         "account_number" => 25041,
         "ein"            => "93219324000104",
-        "type"           => "checking"
+        "type"           => "checking",
+        "is_active"      => 0
     ];
 
-    $fatura = $fatura->put($data);
+    $id = "c4e79189e67e4ccc8732695ff293e33b";
+
+    $conta = $conta->edit($id, $data);
     
     echo '<pre>';
-    print_r($fatura);
+    print_r($conta);
 
 } catch(\Exception $e){
     echo $e->getMessage() . PHP_EOL;

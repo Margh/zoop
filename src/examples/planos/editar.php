@@ -7,14 +7,6 @@ try {
     //usar a v2 para planos
     $api->setApiVersion('v2');
 
-    $id = '54d4da147f5d43608cdfb4e64bd007da';
-    
-    $api->incrementUrl($id);
-
-    //não adicionar esse header direto no construtor da api
-    //isso causará problema em outro endpoint
-    $api->addHeader('content-type', 'application/json');
-
     $plano = new \Zoop\Plans($api);
 
     $data = [
@@ -30,7 +22,9 @@ try {
         'status'           => 'active'
     ];
 
-    $plano = $plano->put($data);
+    $id = '54d4da147f5d43608cdfb4e64bd007da';
+
+    $plano = $plano->edit($id, $data);
     
     echo '<pre>';
     print_r($plano);

@@ -6,16 +6,14 @@ try {
 
     $api->setApiVersion('v1');
 
-    $id = 'fa6dd7c08e4247e5830c900f397184d9';
+    $source = new \Zoop\Sources($api);
     
-    $api->incrementUrl($id);
+    $id = 'fa6dd7c08e4247e5830c900f397184d9';
 
-    $plano = new \Zoop\Sources($api);
-
-    $plano = $plano->delete();
+    $source = $source->delete($id);
 
     echo '<pre>';
-    print_r($plano);
+    print_r($source);
 
 } catch(\Exception $e){
     echo $e->getMessage() . PHP_EOL;

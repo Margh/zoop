@@ -6,12 +6,6 @@ try {
 
     $api->setApiVersion('v1');
 
-    $increment = 'individuals/';
-    
-    $id = '815910b0a16a4bd5b1fb62777bb7b696';
-
-    $api->incrementUrl($increment . $id);
-
     $vendedor = new \Zoop\Sellers($api);
 
     $data = [
@@ -23,7 +17,11 @@ try {
         "taxpayer_id"  => "17367530020"
     ];
 
-    $vendedor = $vendedor->put($data);
+    $id = 'eaac5328426b476880c95d19956e66ed';
+
+    //'individuals' para editar uma pessoa física
+    //'businesses'  para editar uma pessoa jurídica
+    $vendedor = $vendedor->edit($id, $data, 'individuals');
 
     echo '<pre>';
     print_r($vendedor);

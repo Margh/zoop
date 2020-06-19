@@ -8,7 +8,11 @@ try {
 
     $webhook = new \Zoop\Webhooks($api);
 
-    $webhook = $webhook->get();
+    $webhook = $webhook->searchAll([
+        'limit'=>'20',
+        'sort' => 'time-descending', 
+        'offset' => 0
+    ]);
 
     echo '<pre>';
     print_r($webhook);

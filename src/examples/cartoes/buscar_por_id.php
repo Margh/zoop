@@ -6,13 +6,11 @@ try {
 
     $api->setApiVersion('v1');
 
-	$id = 'caf04c8ed9344c43a951b1b2376f2660';
-    
-    $api->incrementUrl($id);
-
     $boleto = new \Zoop\Cards($api);
+    
+	$id = 'caf04c8ed9344c43a951b1b2376f2660';
 
-    $boleto = $boleto->get();
+    $boleto = $boleto->searchById($id);
 
     echo '<pre>';
     print_r($boleto);

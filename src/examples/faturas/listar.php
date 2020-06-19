@@ -9,7 +9,7 @@ try {
 
     $fatura = new \Zoop\Invoices($api);
 
-    $fatura = $fatura->get([
+    $fatura = $fatura->searchAll([
         'limit'=>'20',
         'sort' => 'time-descending', 
         'offset' => 0

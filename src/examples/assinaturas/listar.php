@@ -8,7 +8,7 @@ try {
 
     $assinatura = new \Zoop\Subscriptions($api);
 
-    $assinatura = $assinatura->get();
+    $assinatura = $assinatura->searchAll();
 
     echo '<pre>';
     print_r($assinatura);

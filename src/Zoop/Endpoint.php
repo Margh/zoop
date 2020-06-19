@@ -15,7 +15,7 @@ abstract class Endpoint {
     /**
      * @return string o nome do endpoint da model 
     */
-    abstract public function getEndpoint();
+    abstract protected function getEndpoint();
 
     /**
      * Construtor.
@@ -28,16 +28,20 @@ abstract class Endpoint {
     }
 
     /**
-     * Insere um dado no endpoint
+     * Apaga um registro no endpoint
      * 
      * @param array $data = null Parâmetros da requisição
      * @return object Resposta do serviço
     */
-    public function post($data = null){
+    public function delete($id = null){
         
         try{
             
-            return $this->api->execute('post', $this->getEndpoint(), $data);
+            if(empty($id)) throw new \Exception("Id não informado.");
+
+            $this->api->complementUrl($id);
+
+            return $this->api->execute('delete', $this->getEndpoint(), null);
         }
         catch(\Exception $e){
             
@@ -46,15 +50,61 @@ abstract class Endpoint {
     }
 
     /**
+     * Busca pelo id
+     * 
+     * @param array $id = null Parâmetros da requisição
+     * @return object Resposta do serviço
+    */
+    public function searchById($id = null){
+        
+        try{
+            
+            if(empty($id)) throw new \Exception("Id não informado.");
+
+            $this->api->complementUrl($id);
+
+            return $this->api->execute('get', $this->getEndpoint(), null);
+        }
+        catch(\Exception $e){
+            
+            throw $e;
+        }        
+    }
+
+    /**
+     * Busca todos os registro do endpoint
+     * 
+     * @param array $data = null Parâmetros da requisição
+     * @return object Resposta do serviço
+    */
+    public function searchAll($data = null){
+
+        try{
+
+            return $this->api->execute('get', $this->getEndpoint(), $data);
+        }
+        catch(\Exception $e){
+
+            throw $e;
+        }
+    }
+
+    /**
      * Edita um dado no endpoint
      * 
      * @param array $data = null Parâmetros da requisição
      * @return object Resposta do serviço
     */
-    public function put($data = null){
+    public function edit($id = null, $data = null){
         
         try{
             
+            if(empty($id)) throw new \Exception("Id não informado.");
+
+            $this->api->complementUrl($id);
+
+            $this->api->addHeader('content-type', 'application/json');
+
             return $this->api->execute('put', $this->getEndpoint(), $data);
         }
         catch(\Exception $e){
@@ -64,52 +114,19 @@ abstract class Endpoint {
     }
 
     /**
-     * Consulta por registros no endpoint
+     * cria um dado no endpoint
      * 
-     * @param array $data = null Parâmetros da requisição
+     * @param string $id = null Parâmetros da requisição
+     * @param array  $data = null Parâmetros da requisição
      * @return object Resposta do serviço
     */
-    public function get($data = null){
+    public function create($data = null){
         
         try{
-            
-            return $this->api->execute('get', $this->getEndpoint(), $data);
-        }
-        catch(\Exception $e){
-            
-            throw $e;
-        }        
-    }
 
-    /**
-     * Apaga um registro no endpoint
-     * 
-     * @param array $data = null Parâmetros da requisição
-     * @return object Resposta do serviço
-    */
-    public function delete($data = null){
-        
-        try{
-            
-            return $this->api->execute('delete', $this->getEndpoint(), $data);
-        }
-        catch(\Exception $e){
-            
-            throw $e;
-        }        
-    }
+            $this->api->addHeader('content-type', 'application/json');
 
-    /**
-     * Apaga um registro no endpoint
-     * 
-     * @param array $data = null Parâmetros da requisição
-     * @return object Resposta do serviço
-    */
-    public function patch($data = null){
-        
-        try{
-            
-            return $this->api->execute('patch', $this->getEndpoint(), $data);
+            return $this->api->execute('post', $this->getEndpoint(), $data);
         }
         catch(\Exception $e){
             

@@ -6,17 +6,11 @@ try {
 
     $api->setApiVersion('v1');
 
-    $type = 'search';
-
-    $api->incrementUrl($type);
-
     $vendedor = new \Zoop\Sellers($api);
 
-    $paramns = [
-        'ein' => '93219324000104'
-    ];
+    $cnpj = '93219324000104';
 
-    $vendedor = $vendedor->get($paramns);
+    $vendedor = $vendedor->searchByCNPJ($cnpj);
 
     echo '<pre>';
     print_r($vendedor);

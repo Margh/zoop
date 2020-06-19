@@ -7,14 +7,6 @@ try {
     //usar a v2 para assinaturas
     $api->setApiVersion('v2');
 
-    $id = '9d4fd37f590d4771974e1ff909f9f592';
-    
-    $api->incrementUrl($id);
-
-    //não adicionar esse header direto no construtor da api
-    //isso causará problema em outro endpoint
-    $api->addHeader('content-type', 'application/json');
-
     $assinatura = new \Zoop\Subscriptions($api);
 
     $data =[
@@ -31,7 +23,9 @@ try {
         "tolerance_period" => "5" //perído de tolerancia caso haja falha de pagamento
     ];
 
-    $assinatura = $assinatura->put($data);
+    $id = '9d4fd37f590d4771974e1ff909f9f592';
+
+    $assinatura = $assinatura->edit($id, $data);
     
     echo '<pre>';
     print_r($assinatura);

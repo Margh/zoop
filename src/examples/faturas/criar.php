@@ -7,10 +7,6 @@ try {
     //usar a v2 para planos
     $api->setApiVersion('v2');
 
-    //não adicionar esse header direto no construtor da api
-    //isso causará problema em outro endpoint
-    $api->addHeader('content-type', 'application/json');
-
     $fatura = new \Zoop\Invoices($api);
 
     $data = [
@@ -29,7 +25,7 @@ try {
         "max_retries" => 5 //quantidade máxima de vezes que se deve tentar efetuar o pagamento
     ];
 
-    $fatura = $fatura->post($data);
+    $fatura = $fatura->create($data);
     
     echo '<pre>';
     print_r($fatura);

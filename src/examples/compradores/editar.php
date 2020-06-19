@@ -6,10 +6,6 @@ try {
 
     $api->setApiVersion('v1');
 
-    $id = '0bfc31ea2cba4e1dbfd9705658ef3aec';
-    
-    $api->incrementUrl($id);
-
     $comprador = new \Zoop\Buyers($api);
 
     $data = [
@@ -27,7 +23,9 @@ try {
         ],
     ];
 
-    $comprador = $comprador->put($data);
+    $id = '0bfc31ea2cba4e1dbfd9705658ef3aec';
+
+    $comprador = $comprador->edit($id, $data);
 
     echo '<pre>';
     print_r($comprador);

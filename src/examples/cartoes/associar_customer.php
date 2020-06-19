@@ -4,20 +4,21 @@ try {
 
     $api = require_once('../api.php');
 
+    //usar a v1 para cartões
     $api->setApiVersion('v1');
 
-    $conta = new \Zoop\BankAccounts($api);
+    $card = new \Zoop\Cards($api);
 
     //O id do customer deve ser igual ao que foi usado no token
     $data = [
-        "token"    => "248c3a0c1b354fac9639da2edcf0fea8",
-        "customer" => "0107577210ce4bc1b79a761f8f17c255",
+        "token"    => "181fd6aa74b44076a2264fe39156cf8e",
+        "customer" => "0bfc31ea2cba4e1dbfd9705658ef3aec",
     ];
 
-    $conta = $conta->linkCustomer($data);
+    $card = $card->linkCustomer($data);
 
     echo '<pre>';
-    print_r($conta);
+    print_r($card);
 
 } catch(\Exception $e){
     echo $e->getMessage() . PHP_EOL;

@@ -6,13 +6,11 @@ try {
 
     $api->setApiVersion('v2');
 
-    $id = '54d4da147f5d43608cdfb4e64bd007da';
-    
-    $api->incrementUrl($id);
-
     $plano = new \Zoop\Plans($api);
+    
+    $id = '54d4da147f5d43608cdfb4e64bd007da';
 
-    $plano = $plano->delete();
+    $plano = $plano->delete($id);
 
     echo '<pre>';
     print_r($plano);
