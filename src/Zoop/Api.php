@@ -84,6 +84,8 @@ class Api {
 
             $this->curl->$action($url, $data);
 
+            $this->complementUrl = '';
+
             if($this->curl->error) {
 
                 throw new \Zoop\Exception($this->curl);
